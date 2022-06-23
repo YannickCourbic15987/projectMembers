@@ -9,9 +9,3 @@ $rst = $req->execute();
 
 header('location:article.php');
         exit();
-
-
-
-
-
-?>

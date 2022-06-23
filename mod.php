@@ -1,7 +1,12 @@
 <?php
 session_start();
+require './src/login.php';
+$_SESSION['idMod'] = $_POST['idMod'];
+var_dump($_SESSION);
+
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +15,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>article</title>
+    <title>modifier</title>
 </head>
 
 <body>
@@ -53,26 +58,22 @@ session_start();
             ?>
         </ul>
     </nav>
-    <div class="container w-50">
 
-
-        <form action="intermediaire.php" method="post">
+    <div class="container-sm">
+        <form action="mod2.php" method="post">
             <div class="form-group">
-                <label for="nom_article"> Nom de l'article </label><br>
-                <input type="text" name="nom_article"><br>
-            </div>
-            <div class="form-group">
-
-                <label for="description">
-                    <textarea rows="10" cols="30" name="description">
-                 </textarea>
-
+                <label for="new_nom_article">
+                    nouveau nom d'article
                 </label>
+                <input type="text" name="new_nom_article">
             </div>
-            <button type="submit">publier</button>
+            <div class="form-group">
+                <label for="new_description">nouvelle description</label>
+                <textarea name="new_description" cols="30" rows="10"></textarea>
+            </div>
+            <button type="submit">modifier</button>
         </form>
     </div>
-
 </body>
 
 </html>

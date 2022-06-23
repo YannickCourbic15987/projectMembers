@@ -102,9 +102,8 @@ if (
                 } elseif (isset($_GET['pseudo'])) {
                     echo '<p id="error" class="text-danger text-center"> le pseudo choisit est déjà existant.</p>';
                 }
-            }
-            elseif(isset($_GET['success'])){
-                echo'<p class="text-success text-center">votre inscription a été pris en compte </p>';
+            } elseif (isset($_GET['success'])) {
+                echo '<p class="text-success text-center">votre inscription a été pris en compte </p>';
             }
             ?>
             <p class="text-primary  text-center"> Bienvenue sur mon site ,pour en savoir plus, inscrivez vous , sinon <a href="connection.php">connectez vous </a></p>

@@ -6,21 +6,20 @@ require './src/login.php';
 $i = 0;
 $nom_article = null;
 $description = null;
-$idArticle =null;
+$idArticle = null;
+
+
+
 if (!empty($_SESSION['nom_article']) && !empty($_SESSION['description'])) {
     $nom_article = $_SESSION['nom_article'];
     $description = $_SESSION['description'];
     //récuperer l'id_user de users 
     $req = $connectDB->prepare('insert into article (nom_article , description , ID_USER) values (?,?,?) ');
-    $req->execute(array($nom_article,$description, $_SESSION['ID_USER']));
+    $req->execute(array($nom_article, $description, $_SESSION['ID_USER']));
 
     //affichage et sélection des boutons !!!
-     $req = $connectDB->prepare('select * from article where ID_USER = ?');
+    $req = $connectDB->prepare('select * from article where ID_USER = ?');
     $rst = $req->execute(array($_SESSION['ID_USER']));
-
-
-
-
 }
 // affichage des données 
 $req = $connectDB->prepare('select * from article');
@@ -30,7 +29,7 @@ $rst = $req->execute();
 //affichage des boutons supprimer  avec l'id 
 
 
-if($nom_article != null){
+if ($nom_article != null) {
     $_SESSION['nom_article'] = '';
     $_SESSION['description'] = '';
 }
@@ -98,56 +97,50 @@ if($nom_article != null){
     ?>
 
 
-     <?php 
+    <?php
 
 
-     if($rst){
+    if ($rst) {
         //je lis ma table
         $data = $req->fetchAll();
         foreach ($data as $article) {
 
-           if(!isset($_SESSION['ID_USER'])){
-               
-   echo"
+            if (!isset($_SESSION['ID_USER'])) {
+
+                echo "
      <h1 class ='text-center'> {$article['nom_article']}</h1>
       <p class ='text-center'> date de création : {$article['date_article']}</p>
      <p class ='text-center'> {$article['description']} </p>
        ";
+            }
 
 
-           }
-            
-            
-          if(isset($_SESSION['ID_USER'])){
-               
-                echo"
+            if (isset($_SESSION['ID_USER'])) {
+
+                echo "
                 <h1 class ='text-center'> {$article['nom_article']}</h1>
                 <p class ='text-center'> date de création : {$article['date_article']}</p>
                 <p class ='text-center'> {$article['description']} </p>
                 ";
-              if($article['ID_USER'] === $_SESSION['ID_USER']){
-               echo"<form action='newsupp.php' method='POST'>"; ?>
-                 <input type="hidden" value = <?php echo"{$article['ID_ARTICLE']}"?> name="id">
-                 <button type="submit" value="supprimer" name="supprimer">supprimer</button>
-               <?php echo"</form>";
-              }
-          }
-
-           
-        
-         
-         
+                if ($article['ID_USER'] === $_SESSION['ID_USER']) {
+                    echo "<form action='newsupp.php' method='POST'>"; ?>
+                    <input type="hidden" value=<?php echo "{$article['ID_ARTICLE']}" ?> name="id">
+                    <button type="submit" value="supprimer" name="supprimer">supprimer</button>
+    <?php echo "</form>";
+                    echo "<form action ='mod.php' method='POST'> 
+                   
+                   <input type='hidden' value='{$article['ID_ARTICLE']}' name ='idMod'>
+                   <button type='submit'> modifier </button>
+                   </form>";
+                }
+            }
         }
-
-    
-     }
-
-
-     ?>
+    }
+    ?>
 
 
 
- 
+
 
 </body>
 
